@@ -1,94 +1,122 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+"use strict"
 
-//Import the pool/db information
-const db = require("../db");
+/** Routes for authentication. */
 
-//Registration route
-router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+const express = require("express")
+const User = require("../models/user")
+const router = express.Router()
 
-  // encrpyt password
+router.post("/login", async function (req, res, next) {
   try {
-    //Generate salt with cost factor
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-
-    //hash the password using the generated salt
-    const hashedPassword = await bcrypt.hash(password, salt);
-//we want to save the name,email,and password into database
-    const createUserQuery = `
-            INSERT INTO users (name, email, password)
-            VALUES ($1, $2, $3)
-            RETURNING *
-        `;
-
-    //$1 will get name, $2 will get email, $3 will get hashedPassword
-    const values = [name, email, hashedPassword];
-    const result = await db.query(createUserQuery, values);
-//if the query works or nah
-    //if all this works and no error - Status code 201 - successful entry
-    res.status(201).json({
-      message: "User registered successfully",
-      user: result.rows[0],
-    });
-  } catch (error) {
-    console.error("Error registering user: ", error);
-    res.status(500).json({ message: "Error registering user" });
+    const user = await User.authenticate(req.body)
+    return res.status(200).json({ user })
+  } catch (err) {
+    next(err)
   }
-});
+})
 
-//Login route
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
+router.post("/register", async function (req, res, next) {
   try {
-    //check if the email entered by the user exists in the DB.
-    const getUserQuery = `
-            SELECT * FROM users
-            WHERE email = $1
-        `;
-
-    //execute the query
-    const result = await db.query(getUserQuery, [email]);
-    //store the user data returned from the query
-    const user = result.rows[0];
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found!" });
-    }
-
-    //check if the password entered is correct
-    //user.password is the password which is stored in the DB
-    //password is the user input
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
-
-    //Generate and sign JWT token, store secret-key in .env
-    const token = jwt.sign({ userId: user.id }, "secret-key-unique", {
-      expiresIn: "1h",
-    });
-
-    res.status(200).json({
-      message: "Login Successful",
-      token: token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-    });
-  } catch (error) {
-    console.error("Error logging in: ", error);
-    res.status(500).json({ message: "Error Logging in" });
+    const user = await User.register(req.body)
+    return res.status(201).json({ user })
+  } catch (err) {
+    next(err)
   }
-});
+})
 
-module.exports = router;
+module.exports = router
+
+// const express = require("express");
+// const router = express.Router();
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
+
+// //Import the pool/db information
+// const db = require("../db");
+
+// //Registration route
+// router.post("/register", async (req, res) => {
+//   const { name, email, password } = req.body;
+
+//   // encrpyt password
+//   try {
+//     //Generate salt with cost factor
+//     const saltRounds = 10;
+//     const salt = await bcrypt.genSalt(saltRounds);
+
+//     //hash the password using the generated salt
+//     const hashedPassword = await bcrypt.hash(password, salt);
+// //we want to save the name,email,and password into database
+//     const createUserQuery = `
+//             INSERT INTO users (name, email, password)
+//             VALUES ($1, $2, $3)
+//             RETURNING *
+//         `;
+
+//     //$1 will get name, $2 will get email, $3 will get hashedPassword
+//     const values = [name, email, hashedPassword];
+//     const result = await db.query(createUserQuery, values);
+// //if the query works or nah
+//     //if all this works and no error - Status code 201 - successful entry
+//     res.status(201).json({
+//       message: "User registered successfully",
+//       user: result.rows[0],
+//     });
+//   } catch (error) {
+//     console.error("Error registering user: ", error);
+//     res.status(500).json({ message: "Error registering user" });
+//   }
+// });
+
+// //Login route
+// router.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     //check if the email entered by the user exists in the DB.
+//     const getUserQuery = `
+//             SELECT * FROM users
+//             WHERE email = $1
+//         `;
+
+//     //execute the query
+//     const result = await db.query(getUserQuery, [email]);
+//     //store the user data returned from the query
+//     const user = result.rows[0];
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found!" });
+//     }
+
+//     //check if the password entered is correct
+//     //user.password is the password which is stored in the DB
+//     //password is the user input
+//     const isPasswordValid = await bcrypt.compare(password, user.password);
+
+//     if (!isPasswordValid) {
+//       return res.status(401).json({ message: "Invalid password" });
+//     }
+
+//     //Generate and sign JWT token, store secret-key in .env
+//     const token = jwt.sign({ userId: user.id }, "secret-key-unique", {
+//       expiresIn: "1h",
+//     });
+
+//     res.status(200).json({
+//       message: "Login Successful",
+//       token: token,
+//       user: {
+//         id: user.id,
+//         name: user.name,
+//         email: user.email,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Error logging in: ", error);
+//     res.status(500).json({ message: "Error Logging in" });
+//   }
+// });
+
+// module.exports = router;
 
 
