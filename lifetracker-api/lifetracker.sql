@@ -4,9 +4,9 @@
 \prompt 'Return for yes or control-C to cancel > ' foo
 
 -- step 2 Drop the `lifetracker` database and then create a new `lifetracker` database, before connecting to the `lifetracker` database.
-DROP DATABASE lifetracker;
-CREATE DATABASE lifetracker;
-\connect lifetracker
+DROP DATABASE lifetracker_dev;
+CREATE DATABASE lifetracker_dev;
+\connect lifetracker_dev
 
 -- step 3 Run the `lifetracker-schema.sql` file.
 

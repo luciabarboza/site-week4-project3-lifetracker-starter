@@ -1,11 +1,11 @@
-"use strict"
+"use strict";
 
-const db = require("../db")
-const bcrypt = require("bcrypt")
-const { BadRequestError, UnauthorizedError } = require("../utils/errors")
-const { validateFields } = require("../utils/validate")
+const db = require("../db");
+const bcrypt = require("bcrypt");
+const { BadRequestError, UnauthorizedError } = require("../utils/errors");
+const { validateFields } = require("../utils/validate");
 
-const { BCRYPT_WORK_FACTOR } = require("../config")
+const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
   /**
@@ -19,12 +19,12 @@ class User {
   static _createPublicUser(user) {
     return {
       id: user.id,
-      firstName: user.firstName,
+      firstame: user.firstName,
       lastName: user.lastName,
       email: user.email,
       created: user.created_at,
       updated: user.updated_at,
-    }
+    };
   }
 
   /**
@@ -36,25 +36,29 @@ class User {
    **/
 
   static async authenticate(creds) {
-    const { email, password } = creds
-    const requiredCreds = ["email", "password"]
+    const { email, password } = creds;
+    const requiredCreds = ["email", "password"];
     try {
-      validateFields({ required: requiredCreds, obj: creds, location: "user authentication" })
+      validateFields({
+        required: requiredCreds,
+        obj: creds,
+        location: "user authentication",
+      });
     } catch (err) {
-      throw err
+      throw err;
     }
 
-    const user = await User.fetchUserByEmail(email)
+    const user = await User.fetchUserByEmail(email);
 
     if (user) {
       // compare hashed password to a new hash from password
-      const isValid = await bcrypt.compare(password, user.password)
+      const isValid = await bcrypt.compare(password, user.password);
       if (isValid === true) {
-        return User._createPublicUser(user)
+        return User._createPublicUser(user);
       }
     }
 
-    throw new UnauthorizedError("Invalid username/password")
+    throw new UnauthorizedError("Invalid username/password");
   }
 
   /**
@@ -66,43 +70,44 @@ class User {
    **/
 
   static async register(creds) {
-    const { email, password, firstName, lastName, location, date } = creds
-    const requiredCreds = ["email", "password", "firstName", "lastName", "location", "date"]
+    const { email, password, firstName, lastName, username } = creds;
+    const requiredCreds = ["email", "password", "firstName", "lastName", "username"];
     try {
-      validateFields({ required: requiredCreds, obj: creds, location: "user registration" })
+      validateFields({ required: requiredCreds, obj: creds });
     } catch (err) {
-      throw err
+      throw err;
     }
+    const existingUserWithEmail = await User.fetchUserByEmail(email);
 
-    const existingUserWithEmail = await User.fetchUserByEmail(email)
     if (existingUserWithEmail) {
-      throw new BadRequestError(`Duplicate email: ${email}`)
+      throw new BadRequestError(`Duplicate email: ${email}`);
     }
 
-    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
-    const normalizedEmail = email.toLowerCase()
-
+    const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
+    const lowercaseEmail = email.toLowerCase();
+    // double check return values with readme
+    // is location needed??
     const result = await db.query(
       `INSERT INTO users (
           password,
           first_name,
           last_name,
           email,
-          date
+          username
         )
-        VALUES ($1, $2, $3, $4, $5, $6)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING id,
                   email,            
                   first_name AS "firstName", 
                   last_name AS "lastName",
-                  date
+                  updated_at 
                   `,
-      [hashedPassword, firstName, lastName, normalizedEmail, date]
-    )
+      [hashedPassword, firstName, lastName, lowercaseEmail,username]
+    );
 
-    const user = result.rows[0]
+    const user = result.rows[0];
 
-    return user
+    return user;
   }
 
   /**
@@ -111,23 +116,22 @@ class User {
    * @param {String} email
    * @returns user
    */
+  // may need to add dates
   static async fetchUserByEmail(email) {
     const result = await db.query(
       `SELECT id,
               email, 
               password,
               first_name AS "firstName",
-              last_name AS "lastName",
-              location,
-              date              
+              last_name AS "lastName"        
            FROM users
            WHERE email = $1`,
       [email.toLowerCase()]
-    )
+    );
+    console.log({ result });
+    const user = result.rows[0];
 
-    const user = result.rows[0]
-
-    return user
+    return user;
   }
 
   /**
@@ -143,17 +147,16 @@ class User {
               password,
               first_name AS "firstName",
               last_name AS "lastName",
-              location,
-              date              
+                          
            FROM users
            WHERE id = $1`,
       [userId]
-    )
+    );
 
-    const user = result.rows[0]
+    const user = result.rows[0];
 
-    return user
+    return user;
   }
 }
 
-module.exports = User
+module.exports = User;

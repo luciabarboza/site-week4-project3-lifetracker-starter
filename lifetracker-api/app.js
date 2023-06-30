@@ -23,7 +23,6 @@
 
 "use strict"
 
-/** Express app for Vaccine Hub */
 
 const express = require("express")
 const cors = require("cors")
@@ -59,7 +58,7 @@ app.use(function (req, res, next) {
   return next(new NotFoundError())
 })
 
-/** Generic error handler; anything unhandled goes here. */
+/** Generic error handler; anything unhandled  */
 app.use(function (err, req, res, next) {
   if (!config.IS_TESTING) console.error(err.stack)
   const status = err.status || 500
