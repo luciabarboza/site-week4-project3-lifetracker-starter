@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS nutrition(
     category TEXT NOT NULL,
     calories INTEGER NOT NULL,
     image_url TEXT NOT NULL,
-    user_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE, 
     created_at TIMESTAMP NOT NULL
 
 

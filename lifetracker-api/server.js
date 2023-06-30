@@ -1,19 +1,17 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const morgan = require("morgan"); // Import the Morgan middleware for logging
+const morgan = require("morgan");
+const authRoutes = require("./routes/auth");
 
-// const authRoutes = require("./routes/authRoutes");
+const PORT = 3001;
 
-// Middleware
-app.use(cors()); // Enable CORS middleware to handle cross-origin requests
-app.use(morgan("dev")); // Use Morgan middleware with 'dev' format for request logging
-app.use(express.json()); // Parse incoming requests with JSON payloads
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json());
+app.use("/api/auth", authRoutes);
 
-// app.use("/", authRoutes);
-// app.use("/");
-// Start the server
-const port = 3001;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
+
