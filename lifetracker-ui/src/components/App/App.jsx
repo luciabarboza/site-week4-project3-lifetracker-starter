@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import "./App.css";
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import LoginForm from "../LoginForm/LoginForm";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Router, Routes, Route } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
+import Home from "../Home/Home"
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -92,45 +94,15 @@ const App = () => {
          
           <RegistrationForm onRegister={handleRegistration} /> */}
 
-          <h1>LifeTracker </h1>
-          <h2>Helping you take back control of your world. </h2>
 
-          <img
-            className="front-image"
-            src="https://lifetracker-ui-ai8e.onrender.com/assets/tracker-2a96bfd0.jpg"
-          />
-          <h2>Fitness</h2>
-          <img
-            className="background-image"
-            src="https://lifetracker-ui-ai8e.onrender.com/assets/athlete-adf95577.jpg"
-          />
-          <h2>Food</h2>
-          <img
-            className="background-image"
-            src="https://lifetracker-ui-ai8e.onrender.com/assets/food-e5a7cc9e.jpg"
-          />
-          <h2>Rest</h2>
-          <img
-            className="background-image"
-            src="https://lifetracker.up.railway.app/assets/alarm-cff3823f.jpg"
-          />
 
-          <h2>Planner</h2>
-
-          <img
-            className="background-image"
-            src="https://lifetracker-ui-ai8e.onrender.com/assets/calendar-debf6f3b.jpg"
-          />
-
-          <Router>
+          <BrowserRouter>
             <div>
-              <Link to="/login">
-                <button>Login</button>
-              </Link>
-              <Link to="/register">
-                <button>Register</button>
-              </Link>
+              <Navbar/>
+              
+
               <Routes>
+                <Route path="/" element ={<Home/>}/>
                 <Route
                   path="/login"
                   element={
@@ -141,9 +113,12 @@ const App = () => {
                   path="/register"
                   element={<RegistrationForm onRegister={handleRegistration} />}
                 />
+
+           
+           
               </Routes>
             </div>
-          </Router>
+          </BrowserRouter>
         </div>
       )}
       
