@@ -1,3 +1,17 @@
 .tiles {
   flex-direction: row;
 }
+
+.background-image{
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 300px;
+  width: auto;
+  border-radius: 25px;
+  float:left;
+  padding: 5px;
+  display:table;
+  
+}
