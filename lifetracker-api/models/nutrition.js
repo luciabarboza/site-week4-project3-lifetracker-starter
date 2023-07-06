@@ -31,7 +31,7 @@ class Nutrition {
       calories: nutrition.calories,
       image_url: nutrition.image_url,
       //   should be the authenticated user id
-      user_id: user.id,
+      user_id: nutrition.user_id,
       created_at: nutrition.created_at,
     };
   }
@@ -39,7 +39,7 @@ class Nutrition {
   //   Ensures user inputted the required information in order to store nutrition input
   // if not, it throws an error
 
-  static async record_nutrition_input(creds) {
+  static async record_nutrition_input(creds, user) {
     const { foodname, category, calories, quantity, image_url } = creds;
     const requiredCreds = [
       "foodname",
@@ -64,23 +64,23 @@ class Nutrition {
     const result = await db.query(
       `INSERT INTO nutrition (
             name,
-            id,
             category,
             calories,
             quantity,
             image_url,
-            created_at
+            user_id
           )
-          VALUES ($1, DEFAULT, $2, $3, $4, $5, NOW())
+          VALUES ($1, $2, $3, $4, $5, $6)
           RETURNING 
             name AS "foodname",
+            user_id,
             id,
             category,
             calories,
             quantity,
             image_url,
             created_at`,
-      [foodname, category, calories, quantity, image_url]
+      [foodname, category, calories, quantity, image_url, user.id]
     );
   }
 }
