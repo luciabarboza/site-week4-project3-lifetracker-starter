@@ -15,6 +15,8 @@ CREATE TABLE nutrition(
     category VARCHAR(255) NOT NULL,
     calories INTEGER NOT NULL,
     image_url VARCHAR(255),
-    user_id INTEGER REFERENCES users ON DELETE CASCADE, 
-    created_at TIMESTAMP DEFAULT NOW()
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
+    quantity INTEGER NOT NULL, 
+    created_at TIMESTAMP DEFAULT NOW(),
+    
 );
