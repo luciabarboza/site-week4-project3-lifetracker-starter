@@ -72,7 +72,10 @@ class User {
   static async register(creds) {
     const { email, password, firstName, lastName, username } = creds;
     const requiredCreds = ["email", "password", "firstName", "lastName", "username"];
+    
     try {
+      
+
       validateFields({ required: requiredCreds, obj: creds });
     } catch (err) {
       throw err;
@@ -106,6 +109,8 @@ class User {
     );
 
     const user = result.rows[0];
+
+
 
     return user;
   }

@@ -21,34 +21,43 @@ router.post("/login", async function (req, res, next) {
 router.post("/register", async function (req, res, next) {
   try {
     const user = await User.register(req.body)
-    return res.status(201).json({ user })
-  } catch (err) {
+    console.log(user)
+    const token = jwt.sign(
+      // shows up not defined 
+      { userId: user.id, userName: user.name },
+      "mykeyfosho",
+      {
+        expiresIn: "1h",
+      }
+    );
+    
+    // res.status(201).json({
+    //   message: "User registered successfully",
+    //   token: token,
+    //   user: ,
+    //   });
+    //  {
+    //    res.status(500).json({ message: "Error registering user" });
+    //   }
+    //   ;
+      
+      return res.status(201).json({ user })
+    } catch (err) {
+    console.error("Error registering user:", err);
     next(err)
   }
 })
 
+
+
 // Generating and signing the JWT token 
 
-// const token = jwt.sign(
-//   { userId: result.rows[0].id, userName: result.rows[0].name },
-//   "mykeyfosho",
-//   {
-//     expiresIn: "1h",
-//   }
-// );
+
+
 
 // // Giving a token to a newly registered user 
 
-// res.status(201).json({
-//   message: "User registered successfully",
-//   token: token,
-//   user: result.rows[0],
-//   });
-//  {
-// console.error("Error registering user:", error);
-// res.status(500).json({ message: "Error registering user" });
-// }
-// ;
+
 
 
 
