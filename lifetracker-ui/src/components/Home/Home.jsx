@@ -1,3 +1,6 @@
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPotFood } from "@fortawesome/fontawesome-free";
 
 
 export default function Home () {
@@ -21,6 +24,7 @@ export default function Home () {
             src="https://lifetracker-ui-ai8e.onrender.com/assets/tracker-2a96bfd0.jpg"
           />
           <h2>Fitness</h2>
+          {/* <FontAwesomeIcon icon={faPotFood} /> */}
           <img
             className="background-image"
             src="https://lifetracker-ui-ai8e.onrender.com/assets/athlete-adf95577.jpg"

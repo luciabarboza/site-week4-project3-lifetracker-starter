@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import "./RegistrationForm.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 const RegistrationForm = ({ onRegister }) => {
   const [firstName, setfirstName] = useState("");
@@ -18,6 +21,8 @@ const RegistrationForm = ({ onRegister }) => {
   return (
     <>
       <div className="registration-form-container">
+      <FontAwesomeIcon icon={faUserCircle} size="4x" className="login-icon" />
+
 
 
         <h2>Registration</h2>
