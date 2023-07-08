@@ -23,8 +23,9 @@ By the end of this project you will be able to...
 
 ### Core Features
 
-###UPDATED Video Demo
+### Updated Video Demo
 
+ 
 https://www.loom.com/share/96bb8324dcc14f58ab0b57ffe17709bf?sid=fc6cf759-98eb-4a55-aae4-1a60d1dfcc45
 
 ### Video Demo 
