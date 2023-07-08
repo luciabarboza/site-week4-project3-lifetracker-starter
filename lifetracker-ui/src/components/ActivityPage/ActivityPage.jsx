@@ -6,8 +6,12 @@ import {Link} from "react-router-dom"
 const ActivityPage = () => {
   return (
     <div className="ActivityPage">
+
+
       
       <h1>Activity Feed</h1>
+      <h3> Welcome back, Lucia!</h3> 
+        <h3>Use any button below to record your life!</h3>
 
       <button>
     <Link to="/nutrition">Record Nutrition</Link>

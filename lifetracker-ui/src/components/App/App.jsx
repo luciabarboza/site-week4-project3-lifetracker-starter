@@ -90,7 +90,7 @@ const App = () => {
         console.log(data.message); // Optional - display an error message
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error:", error);
     }
   };
 
@@ -174,7 +174,8 @@ const App = () => {
                   THIS IS LOGGED IN USER ONLY <br></br>
 
                   <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
-                  <ActivityPage loggedIn={loggedIn} />
+                  {/* Remove */}
+                  {/* <ActivityPage loggedIn={loggedIn} /> */}
 
                   {/* addded this  */}
 

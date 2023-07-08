@@ -153,8 +153,8 @@ const NutritionPage = ({onSave, }) => {
       <ul className="nutrition-list">
         {existingNutrition.map((nutrition) => (
           <li key={nutrition.id} className="nutrition-item">
-            Food ID: {nutrition.id} <br></br> -
-            Name: {nutrition.name} <br></br> - Quantity: {nutrition.quantity} <br></br> - Category: {nutrition.category} <br></br> - Calories: {nutrition.calories} <br></br> - ImageURL: {nutrition.image_url} <br></br><br></br>
+            ID: {nutrition.id} <br></br> -
+            Name: {nutrition.name} <br></br> - Quantity: {nutrition.quantity} <br></br> - Category: {nutrition.category} <br></br> - Calories: {nutrition.calories} <br></br> - ImageURL: {nutrition.image_url} <br></br> - TimeStamp: {nutrition.created_at } <br></br>
           </li>
         ))}
       </ul>
