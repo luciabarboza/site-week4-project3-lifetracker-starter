@@ -1,21 +1,94 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NutritionPage.css";
 import axios from "axios";
 import "./NutritionPage.css"
 
-const NutritionPage = ({onSave}) => {
+const NutritionPage = ({onSave, }) => {
 // may or may not need to add categories, id, user_id, created at
   const [foodname, setFoodName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [calories, setCalories] = useState("");
   const [image_url, setImageURL] = useState("");
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState("");
+  const [existingNutrition, setExistingNutrition] = useState([])
+
+
+
+  useEffect(() => {
+    fetchExistingNutrition();
+  }, []);
+
+  const fetchExistingNutrition = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/auth/nutrition");
+      setExistingNutrition(response.data.nutrition);
+
+      //calculate average calories 
+
+     
+        // Pass the average calories to the parent component
+
+
+
+    } catch (error) {
+      console.error("Error fetching existing nutrition:", error);
+    }
+  };
+
+
+  // useEffect(() => {
+  //   // Fetch existing nutrition records here (replace with your API call)
+  //   const fetchExistingNutrition = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3001/api/auth/nutrition");
+  //       setExistingNutrition(response.data.nutrition);
+  //     } catch (error) {
+  //       console.error("Error fetching existing nutrition:", error);
+  //     }
+  //   };
+
+  //   fetchExistingNutrition();
+  // }, []);
+
+  
+
+
 
 
   const handleSave = (e) => {
     e.preventDefault();
-    // Error onLogin is not defined...
+
+    const handleSave = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post("http://localhost:3001/api/auth/nutrition", {
+          foodname,
+          quantity,
+          calories,
+          image_url,
+          category,
+        });
+        console.log(response.data);
+        // Clear the form fields after successful submission
+        setFoodName("");
+        setQuantity("");
+        setCalories("");
+        setImageURL("");
+        setCategory("");
+        // Fetch the updated nutrition records
+        fetchExistingNutrition();
+      } catch (error) {
+        console.error("Error saving nutrition:", error);
+      }
+    };
+    
+    
+
+
+
+
+
     onSave(foodname,quantity,calories,image_url,category);
   }
 
@@ -73,6 +146,17 @@ const NutritionPage = ({onSave}) => {
 
         <button type="submit">Save</button>
       </form>
+
+      {/* DISPLAYING EXISTING NUTRITION RECORDS ON SCREEN */}
+
+      <h2 className="subtitle">Existing Nutrition</h2>
+      <ul className="nutrition-list">
+        {existingNutrition.map((nutrition) => (
+          <li key={nutrition.id} className="nutrition-item">
+            Name: {nutrition.name} - Quantity: {nutrition.quantity} - Category: {nutrition.category} - Calories: {nutrition.calories} - ImageURL: {nutrition.image_url}
+          </li>
+        ))}
+      </ul>
     </div>
   );
   

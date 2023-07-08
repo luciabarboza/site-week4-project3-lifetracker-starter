@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import ActivityPage from "../ActivityPage/ActivityPage";
 import jwtDecode from "jwt-decode";
 import Cookies from "js-cookie";
 import "./App.css";
@@ -19,6 +19,7 @@ const App = () => {
   const [loginError, setLoginError] = useState("");
   const [userName, setUserName] = useState();
   const [userEmail, setUserEmail] = useState();
+  
 
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -38,7 +39,13 @@ const App = () => {
     checkLoggedIn();
   }, []);
 
-  const handleSave = async (foodname, quantity, calories, image_url,category) => {
+  const handleSave = async (
+    foodname,
+    quantity,
+    calories,
+    image_url,
+    category
+  ) => {
     try {
       const response = await axios.post(
         "http://localhost:3001/api/auth/nutrition",
@@ -48,7 +55,7 @@ const App = () => {
           calories,
           image_url,
           email: userEmail,
-          category
+          category,
         }
       );
     } catch (error) {
@@ -108,7 +115,7 @@ const App = () => {
           email,
           password,
           username,
-          category
+          category,
         }),
       });
 
@@ -146,18 +153,18 @@ const App = () => {
           <div>
             {/* Add in the logged in conditional here  */}
             <nav>
-            {/* <Link to="/" className="navbar-link">
+              {/* <Link to="/" className="navbar-link">
                 Home
               </Link> */}
               {/* <Link to="/" className="navbar-link">
                 Home
-              </Link>
-              <Link to="/login" className="navbar-link">
+              </Link> */}
+              {/* <Link to="/login" className="navbar-link">
                 Login
               </Link>
               <Link to="Register" className="navbar-link">
                 Register
-              </Link> */}
+              </Link>  */}
 
               {/* WHEN USER IS LOGGED IN THEY SEE THIS  */}
               {loggedIn && (
@@ -167,7 +174,10 @@ const App = () => {
                   THIS IS LOGGED IN USER ONLY <br></br>
                   <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
 
-                  
+                  {/* addded this  */}
+
+
+                 
                 </>
               )}
             </nav>
@@ -190,6 +200,10 @@ const App = () => {
                     <div className="login-registration">
                       <h3>Login or register to view your info!</h3>
 
+                      {/* Need to add login and register buttons to the navbar here */}
+
+                      <Navbar loggedIn={false} handleLogout={handleLogout} />
+
                       <Home />
                     </div>
                   )
@@ -201,6 +215,7 @@ const App = () => {
                 path="/login"
                 element={<LoginForm onLogin={handleLogin} error={loginError} />}
               />
+              {/* takes you to the regustration page but is not the button */}
               <Route
                 path="/register"
                 element={<RegistrationForm onRegister={handleRegistration} />}
@@ -209,6 +224,11 @@ const App = () => {
               <Route
                 path="/nutrition"
                 element={<NutritionPage onSave={handleSave} />}
+              />
+
+              <Route
+                path="/activity"
+                element={<ActivityPage/>}
               />
             </Routes>
           </div>

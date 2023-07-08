@@ -1,0 +1,61 @@
+.ActivityPage{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: bisque;
+    padding:20px;
+
+}
+
+.calories{
+    background-color: #75DDDD;
+    border-radius: 25px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:80%;
+    margin:0;
+
+
+
+}
+
+.exercise{
+    background-color: #b292ce;
+    border-radius: 25px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:80%;
+    margin:0;
+  
+
+
+
+
+
+
+}
+
+.sleep{
+    background-color: #9ec28f;
+    border-radius: 25px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:80%;
+    margin:0;
+
+
+
+
+
+}
+
+.more-Stats{
+    background-color: #d07991;
+    border-radius: 25px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:80%;
+    margin:0;
+
+
+
+
+}

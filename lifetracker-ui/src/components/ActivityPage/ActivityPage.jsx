@@ -1,154 +1,57 @@
-// export default function ActivityPage(){
-//     <div>
-
-//     </div>
-// }
-
 import React from "react";
+import NutritionPage from "../NutritionPage/NutritionPage";
+import "./ActivityPage.css"
+import {Link} from "react-router-dom"
 
-const Activity = () => {
+const ActivityPage = () => {
   return (
     <div className="ActivityPage">
-      {/* <div className="chakra-container">
-        <div className="chakra-stack">
-          <h2 className="chakra-heading">Activity Feed</h2>
-          <div className="chakra-stack" style={{ marginLeft: "auto" }}>
-            <button type="button" className="chakra-button">
-              Add Exercise
-            </button>
-            <button type="button" className="chakra-button">
-              Log Sleep
-            </button>
-            <button type="button" className="chakra-button">
-              Record Nutrition
-            </button>
-          </div>
-        </div>
-        <div className="css-18qrtb8">
-          <div className="css-xkuesw">
-            <div className="chakra-stack">
-              <div className="chakra-stack">
-                <h2 className="chakra-heading">Total Exercise Minutes</h2>
-                <h2 className="chakra-heading"></h2>
-              </div>
-              <div className="chakra-stack" style={{ marginLeft: "auto" }}></div>
-            </div>
-            <div className="css-0">
-              <div className="css-1lekzkb">
-                <p className="chakra-text">0.0</p>
-                <div className="chakra-stack">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth="0"
-                    viewBox="0 0 448 512"
-                    focusable="false"
-                    className="chakra-icon"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path>
-                  </svg>
-                  <span className="chakra-badge">+2.5%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="css-1k6gjzc">
-          <div className="chakra-stack">
-            <div className="chakra-stack">
-              <h2 className="chakra-heading">Average Hours of Sleep</h2>
-              <h2 className="chakra-heading"></h2>
-            </div>
-            <div className="chakra-stack" style={{ marginLeft: "auto" }}></div>
-          </div>
-          <div className="css-0">
-            <div className="css-1lekzkb">
-              <p className="chakra-text">0.0</p>
-              <div className="chakra-stack">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 448 512"
-                  focusable="false"
-                  className="chakra-icon"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path>
-                </svg>
-                <span className="chakra-badge">-2.5%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="css-btgv56">
-          <div className="chakra-stack">
-            <div className="chakra-stack">
-              <h2 className="chakra-heading">Average Daily Calories</h2>
-              <h2 className="chakra-heading"></h2>
-            </div>
-            <div className="chakra-stack" style={{ marginLeft: "auto" }}></div>
-          </div>
-          <div className="css-0">
-            <div className="css-1lekzkb">
-              <p className="chakra-text">0.00</p>
-              <div className="chakra-stack">
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  viewBox="0 0 448 512"
-                  focusable="false"
-                  className="chakra-icon"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path>
-                </svg>
-                <span className="chakra-badge">+5.5%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="css-qr0fjv">
-          <div className="chakra-stack">
-            <div className="chakra-stack">
-              <h2 className="chakra-heading">More Stats</h2>
-              <h2 className="chakra-heading"></h2>
-            </div>
-            <div className="chakra-stack" style={{ marginLeft: "auto" }}></div>
-          </div>
-          <div className="css-0">
-              <div role="group" className="chakra-stat__group">
-                <div className="chakra-stat">
-                  <dl>
-                    <dt className="chakra-stat__label">Max Calories In One Meal</dt>
-                    <dd className="chakra-stat__number">0.0</dd>
-                  </dl>
-                </div>
-                <div className="chakra-stat">
-                  <dl>
-                    <dt className="chakra-stat__label">Average Exercise Intensity</dt>
-                    <dd className="chakra-stat__number">0.0</dd>
-                  </dl>
-                </div>
-                <div className="chakra-stat">
-                  <dl>
-                    <dt className="chakra-stat__label">Total Number of Hours Slept</dt>
-                    <dd className="chakra-stat__number">0.0</dd>
-                  </dl>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      
+      <h1>Activity Feed</h1>
+
+      <button>
+    <Link to="/nutrition">Record Nutrition</Link>
+</button>
+      <br></br> <br></br>
+      <button>Add Exercise</button>
+      <br></br>
+      <br></br>
+      <button>Log Sleep</button>
+
+
+      <div className="calories">
+      <h2>Average Daily Calories </h2>
+      {/* maybe need to add numbers here  */}
+      <h2>0.0</h2>
+      </div>
+
+      <div className= "exercise">
+      <h2>Total Exercise Minutes</h2>
+      <h2>0.0</h2>
+      </div>
+
+      <div className="sleep">
+      <h2>Average Hours of Sleep</h2>
+      <h2>0.0</h2>
+      <br></br> <br></br>
+      </div>
+
+      {/* probably have to do this through the database stuff */}
+
+      <div className="more-Stats">
+      <h3>More Stats</h3>
+      <br></br>
+      <h3> Max Calories In One Meal</h3>
+      <h2>0.0</h2>
+      <h3>Average Exercise Intensity</h3>
+      <h2>0.0</h2>
+      <h3>Total Number of Hours Slept</h3>
+      <h2>0.0</h2>
+      </div>
+
+     
+
+
     </div>
   );
 };
