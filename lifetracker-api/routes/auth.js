@@ -74,7 +74,8 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/nutrition", async function (req, res, next) {
   try {
-    console.log();
+    // just changed what was inside 
+    console.log(req.body); 
     //replace once we finish jwt token cause instead of user we will show the middleware
     const user = await User.fetchUserByEmail(req.body.email);
     const nutrition = await Nutrition.record_nutrition_input(req.body, user);
@@ -83,5 +84,21 @@ router.post("/nutrition", async function (req, res, next) {
     next(err);
   }
 });
+
+
+
+// Routes to get existing records for nutrition
+
+router.get("/nutrition", async (req, res, next) => {
+  try {
+    // Retrieve existing nutrition records from the database
+    const existingNutrition = await Nutrition.getAllNutrition();
+
+    res.status(200).json({ nutrition: existingNutrition });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;

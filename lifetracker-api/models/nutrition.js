@@ -11,6 +11,20 @@ const { validateFields } = require("../utils/validate");
 const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class Nutrition {
+
+  
+    static async getAllNutrition() {
+      try {
+        const query = "SELECT * FROM nutrition";
+        const result = await db.query(query);
+        return result.rows;
+      } catch (err) {
+        throw new Error("Error retrieving nutrition records");
+      }
+    }
+  
+    // ...
+  
   /**
    * Convert a nutrition from the database into a nutrition object that can be viewed publically.
    * Don't show user's password
@@ -38,6 +52,9 @@ class Nutrition {
 
   //   Ensures user inputted the required information in order to store nutrition input
   // if not, it throws an error
+
+
+  
 
   static async record_nutrition_input(creds, user) {
     const { foodname, category, calories, quantity, image_url } = creds;
