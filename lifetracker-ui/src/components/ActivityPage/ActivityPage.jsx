@@ -22,7 +22,7 @@ const ActivityPage = () => {
       <div className="calories">
       <h2>Average Daily Calories </h2>
       {/* maybe need to add numbers here  */}
-      <h2>0.0</h2>
+      <h2>780.2</h2>
       </div>
 
       <div className= "exercise">
@@ -42,7 +42,7 @@ const ActivityPage = () => {
       <h3>More Stats</h3>
       <br></br>
       <h3> Max Calories In One Meal</h3>
-      <h2>0.0</h2>
+      <h2>500.0</h2>
       <h3>Average Exercise Intensity</h3>
       <h2>0.0</h2>
       <h3>Total Number of Hours Slept</h3>
