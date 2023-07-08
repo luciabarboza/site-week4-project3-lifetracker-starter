@@ -172,7 +172,9 @@ const App = () => {
                   <br></br> <br></br>
                   {/* <Navbar/> */}
                   THIS IS LOGGED IN USER ONLY <br></br>
+
                   <Navbar loggedIn={loggedIn} handleLogout={handleLogout} />
+                  <ActivityPage loggedIn={loggedIn} />
 
                   {/* addded this  */}
 
